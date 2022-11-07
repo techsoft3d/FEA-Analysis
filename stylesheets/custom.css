@@ -1,0 +1,84 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#feaButton{
+  z-index: 100000;
+  position: absolute;
+  bottom: 15px;
+  left: 5%;
+  width: 100px;
+  border-radius: 6px;
+  border: 1px solid black;
+  height: 43px;
+  background-color: white;
+}
+
+#feaButton:hover {
+    background-color: #555;
+    color: white;
+}
+
+#gradientLegend {
+  background: linear-gradient(rgb(255,0,0), rgb(255,255,0), rgb(0,255,0),rgb(0,255,255), rgb(0,0,255));
+  position: absolute;
+  z-index: 1;
+  color: white;
+  border: 0;
+  padding: 10px;
+  font-size: 1em;
+  top: 23%;
+  right:2%;
+  height: 45%;
+  visibility: hidden;
+  text-align: center;
+}
+
+.tick:nth-child(2n+1) {
+  border-top: 2px solid black;
+  width: 10px;
+}
+
+.tickTitle{
+  position: absolute;
+  color: black;
+  right: 0px;
+  top: -9%;
+  width: 200px;
+  text-align:right;
+}
+
+.tickLabel{
+  color: black;
+  top: -50%;
+  position: absolute;
+  right: 13px;
+}
+
+.tick {
+  border-top: 2px solid black;
+  height: 2px;
+  right: 25px;
+  position: absolute;
+  z-index: 99999;
+  width: 7px;
+  height: 24px;
+}
+
+.tick:nth-child(2) {
+  top: 0;
+}
+.tick:nth-child(3) {
+  top: 25%;
+}
+.tick:nth-child(4) {
+  top: 50%;
+}
+.tick:nth-child(5) {
+  top: 75%;
+}
+.tick:nth-child(6) {
+  top: 99%;
+}
