@@ -29,13 +29,6 @@
   <link rel="stylesheet" href="stylesheets/jquery.minicolors.css" />
   <link rel="stylesheet" href="stylesheets/custom.css" />
 
-  <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/gh/techsoft3d/hoops-web-viewer/hoops_web_viewer.js"></script>
-  <script type="text/javascript" src="javascripts/communicator_scripts/web_viewer_ui.js?v=latest" id="hwvUI"></script>
-  <script type="text/javascript"
-    src="javascripts/communicator_scripts/communicator_server_integration.js?v=latest"></script>
-  <script type="text/javascript" src="javascripts/communicator_scripts/sample.js?v=latest"></script>
-
   <script type="text/javascript" src="javascripts/communicator_scripts/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="javascripts/jquery-ui.min.js"></script>
   <script type="text/javascript" src="javascripts/jquery.ui.touch-punch.min.js"></script>
@@ -44,43 +37,18 @@
   <script type="text/javascript" src="javascripts/communicator_scripts/iscroll.min.js"></script>
   <script type="text/javascript" src="javascripts/custom.js"></script>
   <script type="text/javascript" src="javascripts/conversionService.js"></script>
+  <script type="text/javascript" src="javascripts/common/load_scripts.js"></script>
 
   <script>
     var viewer = null;
     var ui = null;
   </script>
   <script type="module">
-
-    viewer = await startViewer("fea")
-
-    viewer.setCallbacks({
-      sceneReady: function () {
-        viewer.getView().setAmbientOcclusionEnabled(true);
-        viewer.getView().setAmbientOcclusionRadius(0.02);
-        // TODO: Re-enable when this no longer causes the viewer to crash
-        //viewer.getModel().setEnableAutomaticUnitScaling(false);
-      },
-      modelStructureReady: function () {
-        enableFeaButton();
-        viewer.getModel().requestNodes([1]);
-        viewer.getModel().setNodesVisibility([1], true);
-        viewer.getView().getNavCube().disable();
-        viewer.getView().getAxisTriad().disable();
-        viewer
-          .getView()
-          .setCamera(Communicator.Camera.fromJson(INITIAL_VIEW));
-      },
-    });
-
-    const uiConfig = {
-      containerId: "content",
-      screenConfiguration: Sample.screenConfiguration,
-    };
-    const ui = new Communicator.Ui.Desktop.DesktopUi(viewer, uiConfig);
-
-    window.onresize = function () {
-      viewer.resizeCanvas();
-    };
+    await loadDynamicScript()
+    await loadIndividualScript("javascripts/communicator_scripts/web_viewer_ui.js")
+    await loadIndividualScript("javascripts/communicator_scripts/communicator_server_integration.js?v=latest")
+    await loadIndividualScript("javascripts/communicator_scripts/sample.js?v=latest")
+    initializeViewer()
   </script>
 </head>
 

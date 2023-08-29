@@ -34,3 +34,49 @@ async function startViewer(modelName) {
         return viewer;
 
 }
+
+async function fetchVersionNumber() {
+        const conversionServiceURI = "https://csapi.techsoft3d.com";
+
+        let res = await fetch(conversionServiceURI + '/api/hcVersion');
+        var data = await res.json();
+        versionNumer = data;
+        
+        return data
+
+}
+
+
+
+async function initializeViewer() {
+        viewer = await startViewer("fea")
+
+        viewer.setCallbacks({
+          sceneReady: function () {
+            viewer.getView().setAmbientOcclusionEnabled(true);
+            viewer.getView().setAmbientOcclusionRadius(0.02);
+            // TODO: Re-enable when this no longer causes the viewer to crash
+            //viewer.getModel().setEnableAutomaticUnitScaling(false);
+          },
+          modelStructureReady: function () {
+            enableFeaButton();
+            viewer.getModel().requestNodes([1]);
+            viewer.getModel().setNodesVisibility([1], true);
+            viewer.getView().getNavCube().disable();
+            viewer.getView().getAxisTriad().disable();
+            viewer
+              .getView()
+              .setCamera(Communicator.Camera.fromJson(INITIAL_VIEW));
+          },
+        });
+    
+        const uiConfig = {
+          containerId: "content",
+          screenConfiguration: Sample.screenConfiguration,
+        };
+        const ui = new Communicator.Ui.Desktop.DesktopUi(viewer, uiConfig);
+    
+        window.onresize = function () {
+          viewer.resizeCanvas();
+        };
+}
